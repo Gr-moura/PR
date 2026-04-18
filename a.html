@@ -123,7 +123,7 @@
             <div class="tag-main">Grupo 10 · Hackathon 2026</div>
             <h1>EanterOS</h1>
             <p style="font-size: 2.2rem; margin-top: 28px; font-weight: 700; color: var(--primary-soft);">Inteligência Jurídica a Serviço da Estratégia</p>
-            <p style="font-size: 1.3rem; margin-top: 20px;">Política de acordos automatizada por IA para os ~5.000 casos/mês de não reconhecimento de empréstimo.</p>
+            <p style="font-size: 1.3rem; margin-top: 20px;">Política de acordos automatizada por IA para os ~15.000 novos processos/mês de não reconhecimento de empréstimo.</p>
             <div class="member-list">
                 <span>Eduardo Muniz</span>
                 <span>Gabriel Rabelo</span>
@@ -142,8 +142,8 @@
             <div class="grid-3">
                 <div class="card">
                     <span class="card-icon">📂</span>
-                    <span class="card-value">5.000</span>
-                    <span class="card-title">casos/mês de não reconhecimento</span>
+                    <span class="card-value">15.000</span>
+                    <span class="card-title">novos processos/mês de não reconhecimento</span>
                 </div>
                 <div class="card">
                     <span class="card-icon">⚖️</span>
@@ -313,7 +313,7 @@
                 </div>
                 <div class="card" style="border-top: 6px solid var(--primary-soft);">
                     <span class="card-icon">💼</span>
-                    <span class="card-value">5.000</span>
+                    <span class="card-value">15.000</span>
                     <span class="card-title">Processos/mês com política padronizada e auditável</span>
                 </div>
                 <div class="card" style="border-top: 6px solid var(--success);">
@@ -360,8 +360,8 @@
                         <div class="req-item blue">
                             <div class="req-icon">🗄️</div>
                             <div class="req-text">
-                                <h3>RAG — pgvector + PostgreSQL 16</h3>
-                                <p>60k sentenças vetorizadas com embeddings OpenAI. Busca por similaridade semântica retorna os casos mais parecidos para fundamentar o intervalo de valor sugerido e o rationale.</p>
+                                <h3>RAG per-processo — embeddings OpenAI em memória</h3>
+                                <p>A cada análise, o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno (NumPy) para recuperar trechos por tópico (assinatura, valor da operação, provas do banco, fraude). Fallback para keyword overlap quando offline.</p>
                             </div>
                         </div>
                         <div class="req-item">
@@ -400,7 +400,7 @@
                             <span class="tech-pill">pgvector</span>
                             <span class="tech-pill">GPT-4o-mini</span>
                             <span class="tech-pill">PyTorch</span>
-                            <span class="tech-pill">XGBoost</span>
+                            <span class="tech-pill">scikit-learn</span>
                             <span class="tech-pill">Tesseract OCR</span>
                             <span class="tech-pill">pdfplumber</span>
                             <span class="tech-pill">Docker Compose</span>
