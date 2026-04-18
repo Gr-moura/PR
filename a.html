@@ -169,59 +169,22 @@
             <div class="req-badge req-1">Requisito 1 — Regra de Decisão &nbsp;·&nbsp; Requisito 2 — Sugestão de Valor</div>
             <h2>Nossa Política de Acordos Inteligente</h2>
             <p style="font-size: 1.2rem; margin-bottom: 20px; color: var(--text);">O pipeline de IA analisa todos os documentos e emite um veredicto em segundos:</p>
-            <div class="mermaid" style="margin: 0 auto 28px; padding: 20px; background: rgba(255,255,255,0.6); border: 1px solid var(--border); border-radius: 20px; text-align: center;">
+            <div class="mermaid" style="margin: 0 auto 28px; width: 100%; padding: 20px; background: rgba(255,255,255,0.6); border: 1px solid var(--border); border-radius: 20px; text-align: center;">
 graph TD
-    %% Fluxo Principal de Processamento
     subgraph Processamento_de_Dados ["Fluxo de Dados"]
         DATA[DATA PDFs] --> GPT1[GPT 1]
-        GPT1 --> BOOL{BOOL}
-        BOOL --> RN1[RN 1]
+        GPT1 --> RN1[RN 1]
         RN1 --> PATH1["90% + LOSS"]
         RN1 --> PATH2["Outros"]
-        PATH1 --> GPT2["GPT 2 (RN2?)"]
+        PATH1 --> GPT2["GPT 2"]
         PATH2 --> GPT3["GPT 3 (+ RN1) (+ PDFs)"]
-        GPT2 --> FINAL(( ))
-        GPT3 --> REMOTO["Demoti / Remoto?"]
-        REMOTO --> FINAL
+        GPT3 --> GPT2
+        GPT3 --> DEFENSE
+        GPT2 --> AGREEMENT
+        GPT2 --> DEFENSE
     end
-    %% Seção de Status e Gestão
-    subgraph Gestao ["Status e Desenvolvimento"]
-        BACKLOG[BACKLOG]
-        WIP["WIP: Scraper Documentos"]
-        IAN["FRONT x BACK (IAN)"]
-    end
-    %% Seção de Escopo/Arquivos
-    subgraph Escopo ["Detalhamento"]
-        FILES["100 arquivos"]
-        FILES --- J["- Justificativa"]
-        FILES --- P["- Partes"]
-    end
-    %% Estilização (Opcional)
-    style DATA fill:#f9f,stroke:#333,stroke-width:2px
-    style FINAL fill:#fff,stroke:#333,stroke-dasharray: 5 5
             </div>
             <div class="req-row">
-                <div class="req-item">
-                    <div class="req-icon">🧠</div>
-                    <div class="req-text">
-                        <h3>RN1 — Rede Neural de Risco</h3>
-                        <p>Treinada em 60.000 sentenças reais. Calcula probabilidade de perda.</p>
-                    </div>
-                </div>
-                <div class="req-item">
-                    <div class="req-icon">🤖</div>
-                    <div class="req-text">
-                        <h3>GPT — Analista Jurídico</h3>
-                        <p>Lê os documentos, identifica se é golpe ou genérico e extrai valor da causa.</p>
-                    </div>
-                </div>
-                <div class="req-item">
-                    <div class="req-icon">💰</div>
-                    <div class="req-text">
-                        <h3>Valoração Automática</h3>
-                        <p>Calcula o valor sugerido de acordo com intervalo min/max, custo estimado de litigar e economia esperada para o Banco.</p>
-                    </div>
-                </div>
             </div>
             <div class="slide-num">3 / 9</div>
         </div>
@@ -511,8 +474,8 @@ Projeção ilustrativa: considerando custo médio de <strong>R$ 250/h</strong> p
     const progress = document.getElementById('progress');
 
     function updateSlide() {
-        container.style.transform = `translateX(-${currentSlide * 100}vw)`;
-        progress.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+        container.style.transform = ⁠ translateX(-${currentSlide * 100}vw) ⁠;
+        progress.style.width = ⁠ ${((currentSlide + 1) / slides.length) * 100}% ⁠;
     }
 
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlide(); } }
