@@ -360,8 +360,8 @@
                         <div class="req-item blue">
                             <div class="req-icon">🗄️</div>
                             <div class="req-text">
-                                <h3>RAG per-processo — embeddings OpenAI em memória</h3>
-                                <p>A cada análise, o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno (NumPy) para recuperar trechos por tópico (assinatura, valor da operação, provas do banco, fraude). Fallback para keyword overlap quando offline.</p>
+                                <h3>RAG per-processo + histórico em pgvector</h3>
+                                <p><strong>Rota online:</strong> a cada análise o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno em memória (NumPy) para fundamentar classifier e valuator. Fallback: keyword overlap quando offline.<br><strong>Persistência:</strong> as 60k sentenças ficam em <code>sentenca_historica</code> (PostgreSQL 16 + pgvector, coluna <code>Vector(1536)</code>) e alimentam win-rate histórico por UF/sub-assunto via SQL.</p>
                             </div>
                         </div>
                         <div class="req-item">
@@ -379,7 +379,8 @@
                         PDF → <span style="color: #79c0ff;">pdfplumber / OCR</span> → texto<br>
                         texto → <span style="color: #79c0ff;">GPT Extrator</span> → metadados<br>
                         metadados → <span style="color: #79c0ff;">RN1</span> → p(procedência)<br>
-                        texto → <span style="color: #79c0ff;">pgvector</span> → casos similares<br>
+                        texto → <span style="color: #79c0ff;">InProcessRetriever</span> → trechos do processo<br>
+                        metadados → <span style="color: #79c0ff;">pgvector SQL</span> → win-rate histórico<br>
                         tudo → <span style="color: #79c0ff;">GPT Pipeline</span> → decisão<br>
                         decisão → <span style="color: #79c0ff;">FastAPI</span> → React UI<br>
                         advogado → <span style="color: #79c0ff;">HITL</span> → PostgreSQL<br><br>
