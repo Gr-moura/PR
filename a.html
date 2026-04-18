@@ -364,21 +364,21 @@ Projeção ilustrativa: considerando custo médio de <strong>R$ 250/h</strong> p
                             <div class="req-icon">🧬</div>
                             <div class="req-text">
                                 <h3>RN1 — Rede Neural (PyTorch)</h3>
-                                <p>Treinada nas 60k sentenças históricas. Input: UF, assunto e sub-assunto (label-encoded), valor da causa (normalizado via StandardScaler), 6 flags de presença de documentos (contrato, extrato, comprovante de crédito, dossiê, demonstrativo de dívida, laudo). Output: probabilidade de perda + valor esperado de condenação.</p>
+                                <p>Treinada nas 60k sentenças jurídicas. Input: UF, assunto e sub-assunto (label-encoded), valor da causa (normalizado), 6 flags de presença de documentos (contrato, extrato, comprovante de crédito, dossiê, demonstrativo de dívida, laudo).</p>
                             </div>
                         </div>
                         <div class="req-item blue">
                             <div class="req-icon">🗄️</div>
                             <div class="req-text">
                                 <h3>RAG per-processo — embeddings OpenAI em memória</h3>
-                                <p>A cada análise o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno em memória (NumPy) para recuperar trechos por tópico (assinatura, valor da operação, provas do banco, fraude). Fallback: keyword overlap quando offline. Em paralelo, o schema já traz a tabela <code>sentenca_historica</code> com coluna <code>Vector(1536)</code> (PostgreSQL 16 + pgvector), reservada para busca semântica sobre precedentes em iterações futuras.</p>
+                                <p>A cada análise o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno em memória (NumPy) para recuperar trechos por tópico (assinatura, valor da operação, provas do banco, fraude).</p>
                             </div>
                         </div>
                         <div class="req-item">
                             <div class="req-icon">🤖</div>
                             <div class="req-text">
                                 <h3>Pipeline de Decisão — GPT-4o-mini</h3>
-                                <p>Recebe: texto dos documentos + output da RN1 + trechos relevantes do processo via RAG. Emite: decisão (ACORDO/DEFESA), confidence, rationale, trechos-chave citados, fatores pró-acordo e pró-defesa, proposta com intervalo e economia.</p>
+                                <p>Recebe: texto dos documentos + output da RN1 + trechos relevantes do processo via RAG. Emite: decisão (ACORDO/DEFESA), confidence, rationale, fatores pró-acordo e pró-defesa, proposta com intervalo e economia.</p>
                             </div>
                         </div>
                     </div>
