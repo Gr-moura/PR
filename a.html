@@ -204,9 +204,8 @@
                     &nbsp;&nbsp;valor_sugerido: <span class="blue">R$ 4.200</span><br>
                     &nbsp;&nbsp;intervalo_min:  <span class="blue">R$ 3.500</span><br>
                     &nbsp;&nbsp;intervalo_max:  <span class="blue">R$ 5.100</span><br>
-                    &nbsp;&nbsp;custo_litigar:  <span class="blue">R$ 12.800</span><br>
-                    &nbsp;&nbsp;economia:       <span class="blue">R$ 8.600</span><br>
-                    &nbsp;&nbsp;casos_similares:<span class="blue">47</span><br><br>
+                    &nbsp;&nbsp;custo_estimado_litigar: <span class="blue">R$ 12.800</span><br>
+                    &nbsp;&nbsp;economia_esperada:      <span class="blue">R$ 8.600</span><br><br>
                     <span class="green"># Citações diretas dos documentos</span><br>
                     trechos_chave: [...]<br>
                     fatores_pro_acordo: [...]<br>
@@ -300,6 +299,7 @@
     <section class="slide">
         <div class="slide-content">
             <h2>Potencial Financeiro da Iniciativa</h2>
+            <div style="display: inline-block; margin-bottom: 20px; padding: 6px 16px; border-radius: 99px; background: rgba(168,90,0,0.12); color: #a85a00; font-size: 0.78rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em;">Estimativa ilustrativa · projeção, não medição</div>
             <div class="grid-4">
                 <div class="card" style="border-top: 6px solid var(--primary);">
                     <span class="card-icon">📉</span>
@@ -323,7 +323,7 @@
                 </div>
             </div>
             <p style="margin-top: 36px; text-align: center; font-size: 1.2rem; background: var(--accent-bg); padding: 20px 28px; border-radius: 16px;">
-                Base: 60.000 sentenças históricas. Nos casos em que a IA recomenda acordo e o valor sugerido é aceito, o custo médio é <strong>R$ 4.200</strong> vs. condenação média de <strong>R$ 12.800</strong> — economia de <strong>R$ 8.600 por caso</strong>.
+Projeção ilustrativa com base em 60.000 sentenças históricas: assumindo que a IA recomenda acordo e o valor sugerido é aceito, o custo médio por caso é da ordem de <strong>R$ 4.200</strong> vs. condenação média de <strong>R$ 12.800</strong> — economia estimada de <strong>~R$ 8.600 por caso</strong>. Valores a serem calibrados com dados reais de produção.
             </p>
             <div class="slide-num">6 / 9</div>
         </div>
@@ -347,21 +347,21 @@
                             <div class="req-icon">🔬</div>
                             <div class="req-text">
                                 <h3>Extração de Metadados — GPT-4o-mini</h3>
-                                <p><strong>Structured Outputs</strong> (Pydantic) garantem saída tipada. Extrai: UF do processo, valor da causa (float), sub-assunto (<em>golpe</em> vs. <em>genérico</em>). Trunca em 32k tokens com prioridade à petição inicial.</p>
+                                <p><strong>Structured Outputs</strong> (Pydantic) garantem saída tipada. Extrai: UF do processo, valor da causa (float), sub-assunto (<em>golpe</em> vs. <em>genérico</em>). Trunca em 32k caracteres com prioridade à petição inicial.</p>
                             </div>
                         </div>
                         <div class="req-item">
                             <div class="req-icon">🧬</div>
                             <div class="req-text">
                                 <h3>RN1 — Rede Neural (PyTorch)</h3>
-                                <p>Treinada nas 60k sentenças históricas. Input: UF (one-hot), sub-assunto, valor da causa (normalizado), 6 flags de presença de documentos. Output: probabilidade de procedência + valor esperado de condenação.</p>
+                                <p>Treinada nas 60k sentenças históricas. Input: UF, assunto e sub-assunto (label-encoded), valor da causa (normalizado via StandardScaler), 6 flags de presença de documentos (contrato, extrato, comprovante de crédito, dossiê, demonstrativo de dívida, laudo). Output: probabilidade de perda + valor esperado de condenação.</p>
                             </div>
                         </div>
                         <div class="req-item blue">
                             <div class="req-icon">🗄️</div>
                             <div class="req-text">
-                                <h3>RAG per-processo + histórico em pgvector</h3>
-                                <p><strong>Rota online:</strong> a cada análise o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno em memória (NumPy) para fundamentar classifier e valuator. Fallback: keyword overlap quando offline.<br><strong>Persistência:</strong> as 60k sentenças ficam em <code>sentenca_historica</code> (PostgreSQL 16 + pgvector, coluna <code>Vector(1536)</code>) e alimentam win-rate histórico por UF/sub-assunto via SQL.</p>
+                                <h3>RAG per-processo — embeddings OpenAI em memória</h3>
+                                <p>A cada análise o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno em memória (NumPy) para recuperar trechos por tópico (assinatura, valor da operação, provas do banco, fraude). Fallback: keyword overlap quando offline. Em paralelo, o schema já traz a tabela <code>sentenca_historica</code> com coluna <code>Vector(1536)</code> (PostgreSQL 16 + pgvector), reservada para busca semântica sobre precedentes em iterações futuras.</p>
                             </div>
                         </div>
                         <div class="req-item">
@@ -380,7 +380,6 @@
                         texto → <span style="color: #79c0ff;">GPT Extrator</span> → metadados<br>
                         metadados → <span style="color: #79c0ff;">RN1</span> → p(procedência)<br>
                         texto → <span style="color: #79c0ff;">InProcessRetriever</span> → trechos do processo<br>
-                        metadados → <span style="color: #79c0ff;">pgvector SQL</span> → win-rate histórico<br>
                         tudo → <span style="color: #79c0ff;">GPT Pipeline</span> → decisão<br>
                         decisão → <span style="color: #79c0ff;">FastAPI</span> → React UI<br>
                         advogado → <span style="color: #79c0ff;">HITL</span> → PostgreSQL<br><br>
@@ -433,13 +432,6 @@
                             <div class="req-text">
                                 <h3 style="color: #ba1a1a;">RN1 em Calibração</h3>
                                 <p>Modelo treinado nos dados disponíveis. Acurácia melhora com feedback real de acordos aceitos/recusados.</p>
-                            </div>
-                        </div>
-                        <div class="req-item" style="border-color: #a85a00;">
-                            <div class="req-icon">📋</div>
-                            <div class="req-text">
-                                <h3 style="color: #a85a00;">Casos Atípicos</h3>
-                                <p>Fraudes inéditas ou teses jurídicas de exceção acionam o flag <em>requires_supervisor</em> automaticamente.</p>
                             </div>
                         </div>
                     </div>
