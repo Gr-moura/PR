@@ -123,7 +123,7 @@
             <div class="tag-main">Grupo 10 · Hackathon 2026</div>
             <h1>EanterOS</h1>
             <p style="font-size: 2.2rem; margin-top: 28px; font-weight: 700; color: var(--primary-soft);">Inteligência Jurídica a Serviço da Estratégia</p>
-            <p style="font-size: 1.3rem; margin-top: 20px;">Política de acordos automatizada por IA para os ~5.000 casos/mês de não reconhecimento de empréstimo.</p>
+            <p style="font-size: 1.3rem; margin-top: 20px;">Política de acordos automatizada por IA para os ~15.000 novos processos/mês de não reconhecimento de empréstimo.</p>
             <div class="member-list">
                 <span>Eduardo Muniz</span>
                 <span>Gabriel Rabelo</span>
@@ -142,8 +142,8 @@
             <div class="grid-3">
                 <div class="card">
                     <span class="card-icon">📂</span>
-                    <span class="card-value">5.000</span>
-                    <span class="card-title">casos/mês de não reconhecimento</span>
+                    <span class="card-value">15.000</span>
+                    <span class="card-title">novos processos/mês de não reconhecimento</span>
                 </div>
                 <div class="card">
                     <span class="card-icon">⚖️</span>
@@ -168,49 +168,28 @@
         <div class="slide-content">
             <div class="req-badge req-1">Requisito 1 — Regra de Decisão &nbsp;·&nbsp; Requisito 2 — Sugestão de Valor</div>
             <h2>Nossa Política de Acordos Inteligente</h2>
-            <div class="grid-2">
-                <div>
-                    <p style="font-size: 1.2rem; margin-bottom: 20px; color: var(--text);">O pipeline de IA analisa todos os documentos e emite um veredicto em segundos:</p>
-                    <div class="req-row">
-                        <div class="req-item">
-                            <div class="req-icon">🧠</div>
-                            <div class="req-text">
-                                <h3>RN1 — Rede Neural de Risco</h3>
-                                <p>Treinada em 60.000 sentenças reais. Calcula probabilidade de procedência, condenação e valor esperado por perfil de processo.</p>
-                            </div>
-                        </div>
-                        <div class="req-item">
-                            <div class="req-icon">🤖</div>
-                            <div class="req-text">
-                                <h3>GPT-4o-mini — Analista Jurídico</h3>
-                                <p>Lê os documentos, identifica se é golpe ou genérico, extrai valor da causa e fundamenta a recomendação com citações diretas.</p>
-                            </div>
-                        </div>
-                        <div class="req-item">
-                            <div class="req-icon">💰</div>
-                            <div class="req-text">
-                                <h3>Valoração Automática</h3>
-                                <p>Calcula o valor sugerido de acordo com intervalo min/max, custo estimado de litigar e economia esperada para o Banco.</p>
-                            </div>
-                        </div>
+            <p style="font-size: 1.2rem; margin-bottom: 20px; color: var(--text);">O pipeline de IA analisa todos os documentos e emite um veredicto em segundos:</p>
+            <div class="req-row">
+                <div class="req-item">
+                    <div class="req-icon">🧠</div>
+                    <div class="req-text">
+                        <h3>RN1 — Rede Neural de Risco</h3>
+                        <p>Treinada em 60.000 sentenças reais. Calcula probabilidade de perda.</p>
                     </div>
                 </div>
-                <div class="code-block">
-                    <span class="green"># Saída do pipeline para cada processo</span><br>
-                    decisao: <span class="blue">"ACORDO"</span> | <span class="blue">"DEFESA"</span><br>
-                    confidence: <span class="blue">0.91</span>  <span class="green"># RN1 + GPT</span><br>
-                    requires_supervisor: <span class="blue">false</span><br><br>
-                    proposta:<br>
-                    &nbsp;&nbsp;valor_sugerido: <span class="blue">R$ 4.200</span><br>
-                    &nbsp;&nbsp;intervalo_min:  <span class="blue">R$ 3.500</span><br>
-                    &nbsp;&nbsp;intervalo_max:  <span class="blue">R$ 5.100</span><br>
-                    &nbsp;&nbsp;custo_litigar:  <span class="blue">R$ 12.800</span><br>
-                    &nbsp;&nbsp;economia:       <span class="blue">R$ 8.600</span><br>
-                    &nbsp;&nbsp;casos_similares:<span class="blue">47</span><br><br>
-                    <span class="green"># Citações diretas dos documentos</span><br>
-                    trechos_chave: [...]<br>
-                    fatores_pro_acordo: [...]<br>
-                    rationale: <span class="blue">"..."</span>
+                <div class="req-item">
+                    <div class="req-icon">🤖</div>
+                    <div class="req-text">
+                        <h3>GPT — Analista Jurídico</h3>
+                        <p>Lê os documentos, identifica se é golpe ou genérico e extrai valor da causa.</p>
+                    </div>
+                </div>
+                <div class="req-item">
+                    <div class="req-icon">💰</div>
+                    <div class="req-text">
+                        <h3>Valoração Automática</h3>
+                        <p>Calcula o valor sugerido de acordo com intervalo min/max, custo estimado de litigar e economia esperada para o Banco.</p>
+                    </div>
                 </div>
             </div>
             <div class="slide-num">3 / 9</div>
@@ -227,7 +206,7 @@
                 <div class="flow-step">
                     <div class="flow-circle">📤</div>
                     <strong>Evidence Hub</strong>
-                    <small>Upload guiado dos 7 documentos obrigatórios (Autos + Subsídios)</small>
+                    <small>Upload guiado dos 7 possíveis documentos (Autos + Subsídios)</small>
                 </div>
                 <div class="flow-step">
                     <div class="flow-circle" style="background: var(--secondary);">🧠</div>
@@ -281,7 +260,6 @@
                         &nbsp;&nbsp;acao: <span class="blue">"AJUSTAR"</span><br>
                         &nbsp;&nbsp;valor_ia: <span class="blue">4200.00</span><br>
                         &nbsp;&nbsp;valor_advogado: <span class="blue">3800.00</span><br>
-                        &nbsp;&nbsp;delta_pct: <span class="blue">9.5%</span>  <span class="green">✓ ok</span><br>
                         &nbsp;&nbsp;justificativa: <span class="blue">"..."</span><br>
                         &nbsp;&nbsp;timestamp: <span class="blue">2026-04-18T07:42Z</span><br><br>
                         <span class="green"># Audit trail completo por processo</span><br>
@@ -300,30 +278,31 @@
     <section class="slide">
         <div class="slide-content">
             <h2>Potencial Financeiro da Iniciativa</h2>
+            <div style="display: inline-block; margin-bottom: 20px; padding: 6px 16px; border-radius: 99px; background: rgba(168,90,0,0.12); color: #a85a00; font-size: 0.78rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em;">Estimativa ilustrativa · projeção, não medição</div>
             <div class="grid-4">
                 <div class="card" style="border-top: 6px solid var(--primary);">
-                    <span class="card-icon">📉</span>
-                    <span class="card-value">-67%</span>
-                    <span class="card-title">Redução custo médio por caso (acordo vs. condenação)</span>
+                    <span class="card-icon">⚡</span>
+                    <span class="card-value">12×</span>
+                    <span class="card-title">Aceleração por advogado (3h → 15 min por processo)</span>
                 </div>
                 <div class="card" style="border-top: 6px solid var(--secondary); background: rgba(0,101,143,0.06);">
                     <span class="card-icon">⏱️</span>
-                    <span class="card-value">&lt; 30s</span>
-                    <span class="card-title">Tempo para recomendação completa (vs. horas de análise)</span>
+                    <span class="card-value">15 min</span>
+                    <span class="card-title">Novo tempo médio de análise por processo (antes: 3h)</span>
                 </div>
                 <div class="card" style="border-top: 6px solid var(--primary-soft);">
                     <span class="card-icon">💼</span>
                     <span class="card-value">5.000</span>
-                    <span class="card-title">Processos/mês com política padronizada e auditável</span>
+                    <span class="card-title">Processos/mês analisados com política padronizada e auditável</span>
                 </div>
                 <div class="card" style="border-top: 6px solid var(--success);">
                     <span class="card-icon">🏦</span>
-                    <span class="card-value">R$ 2.4M</span>
-                    <span class="card-title">Economia anual estimada em condenações evitadas</span>
+                    <span class="card-value">R$ 3,5M</span>
+                    <span class="card-title">Ganho mensal estimado em horas de advogado liberadas</span>
                 </div>
             </div>
             <p style="margin-top: 36px; text-align: center; font-size: 1.2rem; background: var(--accent-bg); padding: 20px 28px; border-radius: 16px;">
-                Base: 60.000 sentenças históricas. Nos casos em que a IA recomenda acordo e o valor sugerido é aceito, o custo médio é <strong>R$ 4.200</strong> vs. condenação média de <strong>R$ 12.800</strong> — economia de <strong>R$ 8.600 por caso</strong>.
+Projeção ilustrativa: considerando custo médio de <strong>R$ 250/h</strong> por advogado, o tempo médio de análise cai de <strong>3h (R$ 750 por processo)</strong> para <strong>15 min (R$ 62,50)</strong> — <strong>economia de 12× por advogado</strong>. Com <strong>5.000 processos/mês</strong> passando pelo pipeline, o ganho mensal estimado em horas de advogado liberadas é de <strong>~R$ 3.500.000</strong> (5.000 × R$ 687,50). Valores a serem calibrados com dados reais de produção.
             </p>
             <div class="slide-num">6 / 9</div>
         </div>
@@ -347,28 +326,28 @@
                             <div class="req-icon">🔬</div>
                             <div class="req-text">
                                 <h3>Extração de Metadados — GPT-4o-mini</h3>
-                                <p><strong>Structured Outputs</strong> (Pydantic) garantem saída tipada. Extrai: UF do processo, valor da causa (float), sub-assunto (<em>golpe</em> vs. <em>genérico</em>). Trunca em 32k tokens com prioridade à petição inicial.</p>
+                                <p><strong>Structured Outputs</strong> (Pydantic) garantem saída tipada. Extrai: UF do processo, valor da causa (float), sub-assunto (<em>golpe</em> vs. <em>genérico</em>).</p>
                             </div>
                         </div>
                         <div class="req-item">
                             <div class="req-icon">🧬</div>
                             <div class="req-text">
                                 <h3>RN1 — Rede Neural (PyTorch)</h3>
-                                <p>Treinada nas 60k sentenças históricas. Input: UF (one-hot), sub-assunto, valor da causa (normalizado), 6 flags de presença de documentos. Output: probabilidade de procedência + valor esperado de condenação.</p>
+                                <p>Treinada nas 60k sentenças históricas. Input: UF, assunto e sub-assunto (label-encoded), valor da causa (normalizado via StandardScaler), 6 flags de presença de documentos (contrato, extrato, comprovante de crédito, dossiê, demonstrativo de dívida, laudo). Output: probabilidade de perda + valor esperado de condenação.</p>
                             </div>
                         </div>
                         <div class="req-item blue">
                             <div class="req-icon">🗄️</div>
                             <div class="req-text">
-                                <h3>RAG — pgvector + PostgreSQL 16</h3>
-                                <p>60k sentenças vetorizadas com embeddings OpenAI. Busca por similaridade semântica retorna os casos mais parecidos para fundamentar o intervalo de valor sugerido e o rationale.</p>
+                                <h3>RAG per-processo — embeddings OpenAI em memória</h3>
+                                <p>A cada análise o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno em memória (NumPy) para recuperar trechos por tópico (assinatura, valor da operação, provas do banco, fraude). Fallback: keyword overlap quando offline. Em paralelo, o schema já traz a tabela <code>sentenca_historica</code> com coluna <code>Vector(1536)</code> (PostgreSQL 16 + pgvector), reservada para busca semântica sobre precedentes em iterações futuras.</p>
                             </div>
                         </div>
                         <div class="req-item">
                             <div class="req-icon">🤖</div>
                             <div class="req-text">
                                 <h3>Pipeline de Decisão — GPT-4o-mini</h3>
-                                <p>Recebe: texto dos documentos + output da RN1 + casos similares do RAG. Emite: decisão (ACORDO/DEFESA), confidence, rationale, trechos-chave citados, fatores pró-acordo e pró-defesa, proposta com intervalo e economia.</p>
+                                <p>Recebe: texto dos documentos + output da RN1 + trechos relevantes do processo via RAG. Emite: decisão (ACORDO/DEFESA), confidence, rationale, trechos-chave citados, fatores pró-acordo e pró-defesa, proposta com intervalo e economia.</p>
                             </div>
                         </div>
                     </div>
@@ -379,7 +358,7 @@
                         PDF → <span style="color: #79c0ff;">pdfplumber / OCR</span> → texto<br>
                         texto → <span style="color: #79c0ff;">GPT Extrator</span> → metadados<br>
                         metadados → <span style="color: #79c0ff;">RN1</span> → p(procedência)<br>
-                        texto → <span style="color: #79c0ff;">pgvector</span> → casos similares<br>
+                        texto → <span style="color: #79c0ff;">InProcessRetriever</span> → trechos do processo<br>
                         tudo → <span style="color: #79c0ff;">GPT Pipeline</span> → decisão<br>
                         decisão → <span style="color: #79c0ff;">FastAPI</span> → React UI<br>
                         advogado → <span style="color: #79c0ff;">HITL</span> → PostgreSQL<br><br>
@@ -400,7 +379,7 @@
                             <span class="tech-pill">pgvector</span>
                             <span class="tech-pill">GPT-4o-mini</span>
                             <span class="tech-pill">PyTorch</span>
-                            <span class="tech-pill">XGBoost</span>
+                            <span class="tech-pill">scikit-learn</span>
                             <span class="tech-pill">Tesseract OCR</span>
                             <span class="tech-pill">pdfplumber</span>
                             <span class="tech-pill">Docker Compose</span>
@@ -432,13 +411,6 @@
                             <div class="req-text">
                                 <h3 style="color: #ba1a1a;">RN1 em Calibração</h3>
                                 <p>Modelo treinado nos dados disponíveis. Acurácia melhora com feedback real de acordos aceitos/recusados.</p>
-                            </div>
-                        </div>
-                        <div class="req-item" style="border-color: #a85a00;">
-                            <div class="req-icon">📋</div>
-                            <div class="req-text">
-                                <h3 style="color: #a85a00;">Casos Atípicos</h3>
-                                <p>Fraudes inéditas ou teses jurídicas de exceção acionam o flag <em>requires_supervisor</em> automaticamente.</p>
                             </div>
                         </div>
                     </div>
