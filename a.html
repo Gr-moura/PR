@@ -123,7 +123,7 @@
             <div class="tag-main">Grupo 10 · Hackathon 2026</div>
             <h1>EanterOS</h1>
             <p style="font-size: 2.2rem; margin-top: 28px; font-weight: 700; color: var(--primary-soft);">Inteligência Jurídica a Serviço da Estratégia</p>
-            <p style="font-size: 1.3rem; margin-top: 20px;">Política de acordos automatizada por IA para os ~15.000 novos processos/mês de não reconhecimento de empréstimo.</p>
+            <p style="font-size: 1.3rem; margin-top: 20px;">Política de acordos automatizada por IA para os ~5.000 novos processos/mês de não reconhecimento de empréstimo.</p>
             <div class="member-list">
                 <span>Eduardo Muniz</span>
                 <span>Gabriel Rabelo</span>
@@ -142,7 +142,7 @@
             <div class="grid-3">
                 <div class="card">
                     <span class="card-icon">📂</span>
-                    <span class="card-value">15.000</span>
+                    <span class="card-value">5.000</span>
                     <span class="card-title">novos processos/mês de não reconhecimento</span>
                 </div>
                 <div class="card">
@@ -169,6 +169,37 @@
             <div class="req-badge req-1">Requisito 1 — Regra de Decisão &nbsp;·&nbsp; Requisito 2 — Sugestão de Valor</div>
             <h2>Nossa Política de Acordos Inteligente</h2>
             <p style="font-size: 1.2rem; margin-bottom: 20px; color: var(--text);">O pipeline de IA analisa todos os documentos e emite um veredicto em segundos:</p>
+            <div class="mermaid" style="margin: 0 auto 28px; padding: 20px; background: rgba(255,255,255,0.6); border: 1px solid var(--border); border-radius: 20px; text-align: center;">
+graph TD
+    %% Fluxo Principal de Processamento
+    subgraph Processamento_de_Dados ["Fluxo de Dados"]
+        DATA[DATA PDFs] --> GPT1[GPT 1]
+        GPT1 --> BOOL{BOOL}
+        BOOL --> RN1[RN 1]
+        RN1 --> PATH1["90% + LOSS"]
+        RN1 --> PATH2["Outros"]
+        PATH1 --> GPT2["GPT 2 (RN2?)"]
+        PATH2 --> GPT3["GPT 3 (+ RN1) (+ PDFs)"]
+        GPT2 --> FINAL(( ))
+        GPT3 --> REMOTO["Demoti / Remoto?"]
+        REMOTO --> FINAL
+    end
+    %% Seção de Status e Gestão
+    subgraph Gestao ["Status e Desenvolvimento"]
+        BACKLOG[BACKLOG]
+        WIP["WIP: Scraper Documentos"]
+        IAN["FRONT x BACK (IAN)"]
+    end
+    %% Seção de Escopo/Arquivos
+    subgraph Escopo ["Detalhamento"]
+        FILES["100 arquivos"]
+        FILES --- J["- Justificativa"]
+        FILES --- P["- Partes"]
+    end
+    %% Estilização (Opcional)
+    style DATA fill:#f9f,stroke:#333,stroke-width:2px
+    style FINAL fill:#fff,stroke:#333,stroke-dasharray: 5 5
+            </div>
             <div class="req-row">
                 <div class="req-item">
                     <div class="req-icon">🧠</div>
@@ -242,7 +273,7 @@
                         <div class="req-icon">📊</div>
                         <div class="req-text">
                             <h3>Aderência à Política</h3>
-                            <p>Toda decisão do advogado é registrada com timestamp, ação (ACEITAR/AJUSTAR/RECUSAR), valor proposto e justificativa. Desvios acima de 15% exigem justificativa obrigatória.</p>
+                            <p>Toda decisão do advogado é registrada com timestamp, ação (ACEITAR/AJUSTAR/RECUSAR), valor proposto e justificativa.</p>
                         </div>
                     </div>
                     <div class="req-item blue">
@@ -333,21 +364,21 @@ Projeção ilustrativa: considerando custo médio de <strong>R$ 250/h</strong> p
                             <div class="req-icon">🧬</div>
                             <div class="req-text">
                                 <h3>RN1 — Rede Neural (PyTorch)</h3>
-                                <p>Treinada nas 60k sentenças históricas. Input: UF, assunto e sub-assunto (label-encoded), valor da causa (normalizado via StandardScaler), 6 flags de presença de documentos (contrato, extrato, comprovante de crédito, dossiê, demonstrativo de dívida, laudo). Output: probabilidade de perda + valor esperado de condenação.</p>
+                                <p>Treinada nas 60k sentenças jurídicas. Input: UF, assunto e sub-assunto (label-encoded), valor da causa (normalizado), 6 flags de presença de documentos (contrato, extrato, comprovante de crédito, dossiê, demonstrativo de dívida, laudo).</p>
                             </div>
                         </div>
                         <div class="req-item blue">
                             <div class="req-icon">🗄️</div>
                             <div class="req-text">
                                 <h3>RAG per-processo — embeddings OpenAI em memória</h3>
-                                <p>A cada análise o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno em memória (NumPy) para recuperar trechos por tópico (assinatura, valor da operação, provas do banco, fraude). Fallback: keyword overlap quando offline. Em paralelo, o schema já traz a tabela <code>sentenca_historica</code> com coluna <code>Vector(1536)</code> (PostgreSQL 16 + pgvector), reservada para busca semântica sobre precedentes em iterações futuras.</p>
+                                <p>A cada análise o <em>InProcessRetriever</em> fatia os PDFs do processo corrente em chunks de ~400 palavras, embeda via <code>text-embedding-3-small</code> e faz kNN por cosseno em memória (NumPy) para recuperar trechos por tópico (assinatura, valor da operação, provas do banco, fraude).</p>
                             </div>
                         </div>
                         <div class="req-item">
                             <div class="req-icon">🤖</div>
                             <div class="req-text">
                                 <h3>Pipeline de Decisão — GPT-4o-mini</h3>
-                                <p>Recebe: texto dos documentos + output da RN1 + trechos relevantes do processo via RAG. Emite: decisão (ACORDO/DEFESA), confidence, rationale, trechos-chave citados, fatores pró-acordo e pró-defesa, proposta com intervalo e economia.</p>
+                                <p>Recebe: texto dos documentos + output da RN1 + trechos relevantes do processo via RAG. Emite: decisão (ACORDO/DEFESA), confidence, rationale, fatores pró-acordo e pró-defesa, proposta com intervalo e economia.</p>
                             </div>
                         </div>
                     </div>
@@ -419,15 +450,11 @@ Projeção ilustrativa: considerando custo médio de <strong>R$ 250/h</strong> p
                     <h2 style="font-size: 2.2rem;">Próximos 30 Dias</h2>
                     <div class="roadmap-item">
                         <div class="roadmap-week">Sem 1–2</div>
-                        <div><strong>Integração Tribunal:</strong> API de peticionamento automático de propostas de acordo nos sistemas dos TJs.</div>
+                        <div><strong>Web scraper de sentenças:</strong> ampliar a base de dados disponível para alimentar modelos mais complexos.</div>
                     </div>
                     <div class="roadmap-item" style="border-color: var(--secondary);">
-                        <div class="roadmap-week" style="color: var(--secondary);">Sem 3</div>
-                        <div><strong>Fine-tuning RN1:</strong> Retreino com feedback real dos acordos aceitos e recusados em produção.</div>
-                    </div>
-                    <div class="roadmap-item" style="border-color: var(--primary-soft);">
-                        <div class="roadmap-week" style="color: var(--primary-soft);">Sem 4</div>
-                        <div><strong>Expansão de Tema:</strong> Adaptar o pipeline para Cartão de Crédito e Consignado (outros ~10k casos/mês).</div>
+                        <div class="roadmap-week" style="color: var(--secondary);">Sem 3–4</div>
+                        <div><strong>RN2 — rede neural de valoração:</strong> substituir o GPT usado hoje para sugerir valor por uma segunda rede neural treinada sobre a base ampliada, buscando estimativas melhor calibradas.</div>
                     </div>
                 </div>
             </div>
@@ -497,6 +524,10 @@ Projeção ilustrativa: considerando custo médio de <strong>R$ 250/h</strong> p
     });
 
     updateSlide();
+</script>
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'default', securityLevel: 'loose' });
 </script>
 </body>
 </html>
